@@ -1,5 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
+import Footer from '../components/Footer';
+import './../components/Footer/style.scss';
 
 const MyApp = (): JSX.Element => {
   return (
@@ -8,6 +10,7 @@ const MyApp = (): JSX.Element => {
         <title>NextJS App From Scratch</title>
       </Head>
       <p>Hello</p>
+      <Footer />
     </>
   );
 };

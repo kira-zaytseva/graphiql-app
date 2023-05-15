@@ -1,0 +1,17 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.link {
+  display: inline-block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -1,15 +1,23 @@
-import React from 'react';
-import Head from 'next/head';
+import { Provider } from 'react-redux';
+import type { AppProps } from 'next/app';
+import { store } from '../Redux/store';
+import Layout from '../components/Layout';
+import '../Firebase/firebase';
+import '../styles/styles.css';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../Firebase/firebase';
 
-const MyApp = (): JSX.Element => {
+function MyApp({ Component, pageProps }: AppProps) {
+  initializeApp(firebaseConfig);
+  // const firebaseApp = initializeApp(firebaseConfig);
+
   return (
-    <>
-      <Head>
-        <title>NextJS App From Scratch</title>
-      </Head>
-      <p>Hello</p>
-    </>
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
   );
-};
+}
 
 export default MyApp;

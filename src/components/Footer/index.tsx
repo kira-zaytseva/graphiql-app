@@ -1,37 +1,37 @@
 import Image from 'next/image';
+import styles from './style.module.scss';
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <a className="github-link" href="https://github.com/eys-man" target="_blank" rel="noreferrer">
+    <footer className={styles.footer}>
+      <a
+        className={styles.footer__link}
+        href="https://github.com/eys-man"
+        target="_blank"
+        rel="noreferrer"
+      >
         eys-man
       </a>
-      <a className="github-link" href="https://github.com/kubana6" target="_blank" rel="noreferrer">
+      <a
+        className={styles.footer__link}
+        href="https://github.com/kubana6"
+        target="_blank"
+        rel="noreferrer"
+      >
         kubana6
       </a>
       <a
-        className="github-link"
+        className={styles.footer__link}
         href="https://github.com/kira-zaytseva"
         target="_blank"
         rel="noreferrer"
       >
         kira-zaytseva
       </a>
-      <a
-        className="footer__school-link"
-        href="https://rs.school/js/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <Image
-          src="/rs_school_js1.png"
-          className="footer__school-img"
-          alt=""
-          width={102}
-          height={38}
-        />
+      <a href="https://rs.school/js/" target="_blank" rel="noreferrer">
+        <Image src="/rs_school_js1.png" alt="" width={102} height={38} />
       </a>
-      <span className="footer__year">2023</span>
+      <span>2023</span>
     </footer>
   );
 };

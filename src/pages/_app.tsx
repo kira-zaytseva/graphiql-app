@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Footer from '../components/Footer';
-import './../components/Footer/style.scss';
+import './style.scss';
 
 const MyApp = (): JSX.Element => {
   return (

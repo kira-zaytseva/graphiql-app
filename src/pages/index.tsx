@@ -1,9 +1,11 @@
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const Home = (): JSX.Element => {
   return (
     <>
+      <Header />
       <p>Hi</p>
       <Button onClick={() => {}} size="large">
         Get Started

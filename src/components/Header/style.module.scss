@@ -1,0 +1,24 @@
+@import './../../assets/styles/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 7%;
+  background-color: $mainBg;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: $pink;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__lang-switcher {
+    border: 1px solid $white;
+  }
+}

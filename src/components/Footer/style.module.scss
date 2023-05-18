@@ -1,0 +1,17 @@
+@import './../../assets/styles/variables.scss';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3%;
+  width: 100%;
+  padding: 10px 7%;
+  background-color: $mainBg;
+  color: $white;
+
+  &__link:hover {
+    text-decoration: underline;
+  }
+}

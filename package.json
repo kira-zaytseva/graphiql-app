@@ -1,20 +1,25 @@
 {
   "dependencies": {
+    "@netlify/plugin-nextjs": "^4.37.1",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "i": "^0.3.7",
     "next": "^13.4.1",
+    "npm": "^9.6.6",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.62.1"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "export": "next export"
   },
   "devDependencies": {
     "@types/node": "20.1.1",

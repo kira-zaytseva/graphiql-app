@@ -1,13 +1,17 @@
+@import './../../assets/styles/variables.scss';
+
 .button {
+  width: fit-content;
   position: relative;
   padding: 10px 70px;
   font-size: 24px;
   border-radius: 10px;
   border: 0;
   cursor: pointer;
-  background-color: var(--pink);
-  color: var(--white);
+  background-color: $pink;
+  color: $white;
   transition: opacity 0.3s ease;
+
 }
 
 .spinner {
@@ -17,10 +21,10 @@
   transform: translate(-50%, -50%);
   width: 10px;
   height: 10px;
-  border: 2px solid var(--white);
+  border: 2px solid $white;
   border-top-color: transparent;
   border-radius: 50%;
-  animation: var(--spinner-animation);
+  animation: $spinner-animation;
 }
 
 .button:hover {
@@ -52,15 +56,11 @@
 
 .transparent {
   background: transparent;
-  color: var(--black);
+  color: $black;
 } 
 
-.transparent .spinner {
-  border: 2px solid var(--black);
-  border-top-color: transparent;
-}
-
+.transparent .spinner, 
 .iconButton .spinner {
-  border: 2px solid var(--black);
+  border: 2px solid $black;
   border-top-color: transparent;
 }

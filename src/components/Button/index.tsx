@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import styles from './index.module.css';
+import styles from './style.module.scss';
 
 type ButtonProps = {
   onClick: MouseEventHandler<HTMLButtonElement>;

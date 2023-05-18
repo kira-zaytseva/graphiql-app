@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import './style.scss';
+
+import '../assets/styles/normalize.css';
+import '../assets/styles/global.scss';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (

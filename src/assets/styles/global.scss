@@ -1,5 +1,4 @@
-@import './../assets/styles/variables.scss';
-@import './../assets/styles/normalize.css';
+@import './variables.scss';
 
 *,
 *::before,
@@ -8,10 +7,11 @@
 }
 
 body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
   background-color: $mainBg;
   color: $white;
-  font-weight: 400;
-  font-size: 1rem;
   overflow-y: hidden;
 }
 

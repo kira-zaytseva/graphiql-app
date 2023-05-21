@@ -2,13 +2,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface IUserState {
   email: string;
-  token?: string;
-  id?: string;
+  refreshToken: string;
+  id: string;
 }
 
 const initialState: IUserState = {
-  // email: 'mail@mail,com',
   email: '',
+  refreshToken: '',
+  id: '',
 };
 
 const userSlice = createSlice({
@@ -16,10 +17,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUserState>) {
-      state = action.payload;
+      state.email = action.payload.email;
+      state.refreshToken = action.payload.refreshToken;
+      state.id = action.payload.id;
     },
     delUser(state) {
       state.email = ``;
+      state.refreshToken = '';
+      state.id = '';
     },
   },
 });

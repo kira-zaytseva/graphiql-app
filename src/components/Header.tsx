@@ -19,6 +19,7 @@ const Header = () => {
     <header>
       <button onClick={handleLang}>{lang}</button>
       <Navbar />
+      <hr style={{ borderColor: 'red' }}></hr>
     </header>
   );
 };

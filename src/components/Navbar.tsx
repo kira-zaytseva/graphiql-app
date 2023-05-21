@@ -1,24 +1,38 @@
-import Link from 'next/link';
-import { RootState } from '../Redux/store';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+// import Link from 'next/link';
+import { AppDispatch, RootState } from '../Redux/store';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-// import { setUser } from '../Redux/Reducers/userSlice';
-import { useState } from 'react';
+import { signOut } from 'firebase/auth';
+import { auth } from '../pages/_app';
+import { setUser } from '../Redux/Reducers/userSlice';
 
-// const useAppDispatch = () => useDispatch<AppDispatch>();
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+const useAppDispatch = () => useDispatch<AppDispatch>();
 
-const Navbar = () => {
+const Navbar = (): JSX.Element => {
   const user = useAppSelector((state) => state.userReducer);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const [hasLogged] = useState(!!user.email);
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(
+          setUser({
+            email: '',
+            id: '',
+            refreshToken: '',
+          })
+        );
+      })
+      .catch((error) => console.log(error));
+    // router.push('/');
+  };
 
   return (
     <nav className="navigation">
       {/* если не залогинен, показать кнопки sign in и sign up */}
-      {!hasLogged && (
+      {user.refreshToken === '' && (
         <div>
           <button className="link" onClick={() => router.push('/login')}>
             Sign in
@@ -29,11 +43,10 @@ const Navbar = () => {
         </div>
       )}
       {/* если залогинен, показать кнопку logout */}
-      {/* пока просто переход на главную */}
-      {hasLogged && (
-        <Link className="link" href="/main">
-          logout {user.email}
-        </Link>
+      {user.refreshToken !== '' && (
+        <button className="link" onClick={logout}>
+          Logout `{user.email}`
+        </button>
       )}
     </nav>
   );

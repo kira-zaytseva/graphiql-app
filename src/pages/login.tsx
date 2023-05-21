@@ -6,11 +6,11 @@ import SignIn from '../components/SignIn';
 
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const user = useAppSelector((state) => state.userReducer);
-  // const lang = useAppSelector((state) => state.langReducer.lang);
-
   const isAuth = !!user.email;
+  const lang = useAppSelector((state) => state.langReducer.lang);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -21,11 +21,14 @@ const Login = () => {
     <>
       <h3>Login Page</h3>
       <hr></hr>
-      {/* <p>INFO:</p>
-      <p>lang = {lang}</p>
-      <p>email = {user.email}</p> */}
-      <SignIn />
+      <p>email = {user.email}</p>
+      <p>user_id = {user.id}</p>
+      <p>refreshToken = {user.refreshToken}</p>
       <hr></hr>
+      <p>isAuth = {String(isAuth)}</p>
+      <p>language = {lang}</p>
+      <hr></hr>
+      <SignIn />
     </>
   );
 };

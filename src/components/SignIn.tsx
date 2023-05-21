@@ -1,33 +1,32 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Form } from './Form';
 import { AppDispatch } from '../Redux/store';
 import { useDispatch } from 'react-redux';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { setUser } from '../Redux/Reducers/userSlice';
+import { auth } from '../pages/_app';
 
-const useAppDispatch = () => useDispatch<AppDispatch>();
-// const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-const SignIn = () => {
+const SignIn = (): JSX.Element => {
+  const useAppDispatch = () => useDispatch<AppDispatch>();
   const dispatch = useAppDispatch();
 
-  // const route = useRouter();
+  const route = useRouter();
 
   const handleSignIn = (email: string, password: string) => {
-    const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        // console.log(user);
+      .then(async ({ user }) => {
         dispatch(
           setUser({
             email: user.email as string,
             id: user.uid,
-            token: user.refreshToken,
+            refreshToken: user.refreshToken,
           })
         );
-        // route.push('/');
+        // const idToken = await user.getIdToken();
+        // console.log(`idToken = ${idToken}`);
+        route.push('/main');
       })
-      .catch(() => alert('Invalid user!'));
+      .catch((error) => alert(error.message));
   };
 
   return <Form title="Sign In" handleClick={handleSignIn} />;

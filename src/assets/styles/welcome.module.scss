@@ -3,9 +3,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 10%;
-  height: 100%;
   padding: 7%;
-  overflow: scroll;
 
   &__info {
     display: flex;
@@ -23,6 +21,8 @@
       flex-direction: column;
       align-items: center;
       gap: 25px;
+      max-width: 300px;
+      text-align: center;
     }
   }
 

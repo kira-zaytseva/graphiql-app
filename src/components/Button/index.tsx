@@ -2,8 +2,9 @@ import React, { MouseEventHandler } from 'react';
 import styles from './style.module.scss';
 
 type ButtonProps = {
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
   size?: 'small' | 'medium' | 'large';
   isIcon?: boolean;
   color?: string;
@@ -15,6 +16,7 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
+  type = 'button',
   size = 'small',
   isIcon = false,
   color,
@@ -32,6 +34,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={`${buttonClassName} ${className || ''}`}
+      type={type}
       style={buttonStyles}
       onClick={onClick}
     >

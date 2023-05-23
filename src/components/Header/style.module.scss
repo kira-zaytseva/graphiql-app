@@ -13,9 +13,12 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: $pink;
-    font-size: 1.5rem;
-    font-weight: 700;
+
+    &__text {
+      color: $pink;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
   }
 
   &__lang {

@@ -2,8 +2,10 @@ import Image from 'next/image';
 import Button from '../components/Button';
 import styles from '../assets/styles/welcome.module.scss';
 import Layout from '../components/Layout/layout';
+import { useRouter } from 'next/router';
 
 const Welcome = (): JSX.Element => {
+  const route = useRouter();
   return (
     <Layout>
       <div className={styles.welcome}>
@@ -21,7 +23,9 @@ const Welcome = (): JSX.Element => {
             <Image src="/results.svg" alt="" height={100} width={100}></Image>
           </li>
         </ul>
-        <Button className={styles.welcome__button}>Get Started</Button>
+        <Button onClick={() => route.push('/login')} className={styles.welcome__button}>
+          Get Started
+        </Button>
       </div>
     </Layout>
   );

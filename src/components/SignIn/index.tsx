@@ -13,8 +13,8 @@ const SignIn = (): JSX.Element => {
       .then(async ({ user }) => {
         const idToken = await user.getIdToken();
         console.log(`idToken = ${idToken}`);
-        setItem('token', idToken);
-        setItem('email', email);
+        setItem('token', idToken, 'session');
+        setItem('email', email, 'session');
 
         route.push('/main');
       })

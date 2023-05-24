@@ -10,8 +10,8 @@ const SignOut = (): JSX.Element => {
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
-        removeItem('token');
-        removeItem('email');
+        removeItem('token', 'session');
+        removeItem('email', 'session');
         route.push('/');
       })
       .catch((error) => console.log(error));
@@ -19,7 +19,7 @@ const SignOut = (): JSX.Element => {
 
   return (
     <>
-      <button onClick={handleLogOut}>SignOut `{getItem('email')}`</button>
+      <button onClick={handleLogOut}>SignOut `{getItem('email', 'session')}`</button>
     </>
   );
 };

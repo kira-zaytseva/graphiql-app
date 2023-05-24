@@ -6,7 +6,7 @@ import Layout from '../components/Layout/layout';
 
 const Main = (): JSX.Element => {
   const { getItem } = useStorage();
-  const token = getItem('token');
+  const token = getItem('token', 'session');
   console.log(`token = ${token}`);
   // const email = getItem('email');
   const route = useRouter();
@@ -18,7 +18,7 @@ const Main = (): JSX.Element => {
       console.log('redirect to Welcome Page');
       route.push('/');
     }
-  });
+  }, [route, token]);
 
   return (
     <Layout>

@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyCo0KyUR9mpB5xiKcgsB26W51v5x__uL6w',
-  authDomain: 'graphiql-app-58b4b.firebaseapp.com',
-  projectId: 'graphiql-app-58b4b',
-  storageBucket: 'graphiql-app-58b4b.appspot.com',
-  messagingSenderId: '583897210793',
-  appId: '1:583897210793:web:ec8bf7f45210f6c6e4aeb8',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);

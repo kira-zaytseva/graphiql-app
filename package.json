@@ -5,6 +5,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "firebase": "^9.22.0",
     "i": "^0.3.7",
     "next": "^13.4.1",
     "npm": "^9.6.6",

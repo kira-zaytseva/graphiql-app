@@ -26,11 +26,9 @@ const Welcome = (): JSX.Element => {
             <Image src="/results.svg" alt="" height={100} width={100}></Image>
           </li>
         </ul>
-
         <Button onClick={() => route.push('/login')} className={styles.welcome__button}>
           {translation.getStarted}
         </Button>
-
       </div>
     </Layout>
   );

@@ -1,0 +1,28 @@
+@import "../../assets/styles/variables";
+
+.input {
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 14px 9px;
+  font-size: 14px;
+  width: 100%;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    border: 0;
+  }
+
+  &__error {
+    border-color: $red;
+
+    &__text {
+      padding: 3px 0 3px 0;
+      color: $red;
+      font-size: 14px;
+      align-self: start;  
+    }
+  }
+}

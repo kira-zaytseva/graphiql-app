@@ -1,25 +1,25 @@
 import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
 import { auth } from '../../Firebase/firebase';
-import useStorage from '../../Hooks/useStorage';
+import { useState } from 'react';
 
 const SignOut = (): JSX.Element => {
-  const route = useRouter();
-  const { removeItem, getItem } = useStorage();
+  const [error, setError] = useState<Error>(new Error(''));
 
-  const handleLogOut = () => {
+  const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        removeItem('token', 'session');
-        removeItem('email', 'session');
-        route.push('/');
+        // router.push('/');
       })
-      .catch((error) => console.log(error));
+      .catch((error: Error) => {
+        setError(error);
+        console.log(error.message);
+      });
   };
 
   return (
     <>
-      <button onClick={handleLogOut}>SignOut `{getItem('email', 'session')}`</button>
+      <button onClick={handleSignOut}>Sign Out</button>
+      {error && <span style={{ color: 'red' }}>{error.message}</span>}
     </>
   );
 };

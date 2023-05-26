@@ -7,7 +7,9 @@ import { useTranslation } from '../hooks/useTranslation';
 
 const Welcome = (): JSX.Element => {
   const translation = useTranslation();
-  const route = useRouter();
+  const router = useRouter();
+
+  const goToLogin = translation.lang === 'EN' ? '/login' : '/ru/login';
 
   return (
     <Layout>
@@ -26,7 +28,8 @@ const Welcome = (): JSX.Element => {
             <Image src="/results.svg" alt="" height={100} width={100}></Image>
           </li>
         </ul>
-        <Button onClick={() => route.push('/login')} className={styles.welcome__button}>
+        {/* <Button onClick={() => router.push('/login')} className={styles.welcome__button}> */}
+        <Button onClick={() => router.push(goToLogin)} className={styles.welcome__button}>
           {translation.getStarted}
         </Button>
       </div>

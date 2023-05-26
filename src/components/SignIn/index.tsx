@@ -1,27 +1,28 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Form } from '../Form';
-import { useRouter } from 'next/router';
 import { auth } from '../../Firebase/firebase';
-import useStorage from '../../hooks/useStorage';
+import { useState } from 'react';
 
 const SignIn = (): JSX.Element => {
-  const route = useRouter();
-  const { setItem } = useStorage();
+  const [error, setError] = useState<Error>(new Error(''));
 
   const handleSignIn = (email: string, password: string) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async ({ user }) => {
-        const idToken = await user.getIdToken();
-        console.log(`idToken = ${idToken}`);
-        setItem('token', idToken, 'session');
-        setItem('email', email, 'session');
-
-        route.push('/main');
+        console.log(`User.email = ${user.email}, redirect to Main Page`);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error: Error) => {
+        setError(error);
+        console.log(error.message);
+      });
   };
 
-  return <Form title="Sign In" handleClick={handleSignIn} />;
+  return (
+    <>
+      <Form title="Sign In" handleClick={handleSignIn} />
+      {error && <span style={{ color: 'red' }}>{error.message}</span>}
+    </>
+  );
 };
 
 export default SignIn;

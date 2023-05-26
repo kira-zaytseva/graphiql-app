@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import SignOut from '../components/SignOut';
 import { useEffect } from 'react';
-import useStorage from '../Hooks/useStorage';
+import useStorage from '../hooks/useStorage';
 import Layout from '../components/Layout/layout';
 
 const Main = (): JSX.Element => {

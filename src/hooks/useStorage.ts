@@ -18,10 +18,10 @@ const useStorage = (): UseStorageReturnValue => {
   const setItem = (key: string, value: string, type?: StorageType): boolean => {
     if (isBrowser) {
       window[storageType(type)].setItem(key, value);
-      return true;
+      return isBrowser;
     }
 
-    return false;
+    return isBrowser;
   };
 
   const removeItem = (key: string, type?: StorageType): void => {

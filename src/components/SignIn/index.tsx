@@ -1,13 +1,20 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { Form } from '../Form';
+import Form from '../Form';
 import { auth } from '../../Firebase/firebase';
 import { useState } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 const SignIn = (): JSX.Element => {
   const [error, setError] = useState<Error>(new Error(''));
+  const translation = useTranslation();
 
-  const handleSignIn = (email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password)
+  const handleSignIn = (data: FormData) => {
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then(async ({ user }) => {
         console.log(`User.email = ${user.email}, redirect to Main Page`);
       })
@@ -19,7 +26,7 @@ const SignIn = (): JSX.Element => {
 
   return (
     <>
-      <Form title="Sign In" handleClick={handleSignIn} />
+      <Form title={translation.signIn} onSendRequest={handleSignIn} />
       {error && <span style={{ color: 'red' }}>{error.message}</span>}
     </>
   );

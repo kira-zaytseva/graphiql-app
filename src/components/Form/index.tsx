@@ -1,31 +1,75 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from '../../hooks/useTranslation';
 
-interface FormProps {
+export type FormData = {
+  email: string;
+  password: string;
+};
+
+type FormProps = {
+  onSendRequest: (data: FormData) => void;
   title: string;
-  handleClick: (email: string, password: string) => void;
-}
+};
 
-const Form: FC<FormProps> = ({ title, handleClick }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Form: FC<FormProps> = ({ onSendRequest, title }: FormProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>({
+    mode: 'onSubmit',
+  });
+
+  const translation = useTranslation();
+
+  const onSubmit: SubmitHandler<FormData> = (data): void => {
+    console.log(`FORM: Запрос на сервер отправлен!`);
+
+    onSendRequest(data);
+    reset();
+  };
 
   return (
-    <div>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="password"
-      />
-      <button onClick={() => handleClick(email, password)}>{title}</button>
+    <div className="form-wrapper">
+      <h2>{title}</h2>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label htmlFor="email">{translation.email}</label>
+          <br></br>
+          <input
+            {...register('email', {
+              required: true,
+            })}
+            type="email"
+            placeholder="enter email"
+          />
+        </div>
+        <div>{errors?.email && <p>Enter correct e-maill</p>}</div>
+        <div>
+          <label htmlFor="password">{translation.password}</label>
+          <br></br>
+          <input
+            {...register('password', {
+              required: true,
+              pattern: /[A-Za-z0-9]{6,}/i,
+            })}
+            type="password"
+            placeholder="enter password"
+          />
+        </div>
+        <div>
+          {errors?.password && (
+            <p>
+              The password must contains minimum six letters. Special characters are not allowed
+            </p>
+          )}
+        </div>
+        <input type="submit" />
+      </form>
     </div>
   );
 };
 
-export { Form };
+export default Form;

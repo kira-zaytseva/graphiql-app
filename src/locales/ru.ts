@@ -7,4 +7,8 @@ export const ru = {
   oops: 'Ой, что-то пошло не так!',
   thePageCannotBeFound: 'Страница, которую вы ищете, не найдена.',
   goHome: 'Вернуться на главную',
+  signUp: 'Зарегистрироваться',
+  signIn: 'Войти в GraphiQL',
+  password: 'Введи пароль',
+  email: 'Почта',
 };

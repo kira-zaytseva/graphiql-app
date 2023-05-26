@@ -1,11 +1,64 @@
-import SignOut from '../components/SignOut';
+//import { useRouter } from 'next/router';
+import Image from 'next/image';
+//import SignOut from '../components/SignOut';
+// import { useEffect } from 'react';
+import useStorage from '../hooks/useStorage';
+import { useTranslation } from '../hooks/useTranslation';
 import Layout from '../components/Layout/layout';
+import styles from '../assets/styles/editor.module.scss';
+import Button from '../components/Button';
+import Textarea from '../components/Textarea';
 
 const Main = (): JSX.Element => {
+  const translation = useTranslation();
+  const { getItem } = useStorage();
+  const token = getItem('token', 'session');
+  console.log(`token = ${token}`);
+  // const email = getItem('email');
+  //const route = useRouter();
+
+  // useEffect(() => {
+  //   if (token) {
+  //     console.log(`token есть`);
+  //   } else {
+  //     console.log('redirect to Welcome Page');
+  //     route.push('/');
+  //   }
+  // }, [route, token]);
+
   return (
     <Layout>
-      <h3>Main Page</h3>
-      <SignOut />
+      <div className={styles.editor__wrapper}>
+        <section className={styles.editor__section}>
+          <div className={styles.editor__section__docs}>
+            <pre className={styles.editor__section__docs__text}></pre>
+            <Button isTransparent className={styles.editor__section__docs__btn}>
+              <Image src="/docs.svg" alt="" width={32} height={32}></Image>
+            </Button>
+          </div>
+          <div className={styles.editor__section__codespace}>
+            <div className={styles.codespace__editor}>
+              <Textarea className={styles.codespace__editor__textarea}></Textarea>
+              <Button className={styles.codespace__editor__btn} isIcon>
+                <Image src="/play.svg" alt="" width={20} height={20}></Image>
+              </Button>
+            </div>
+            <div className={styles.codespace__params}>
+              <Textarea className={styles.codespace__params__textarea}></Textarea>
+              <header className={styles.codespace__params__header}>
+                <Button isTransparent className={styles.codespace__params__header__btn}>
+                  {translation.variables}
+                </Button>
+                <Button isTransparent className={styles.codespace__params__header__btn}>
+                  {translation.headers}
+                </Button>
+              </header>
+            </div>
+          </div>
+          <Textarea className={styles.editor__section__result}></Textarea>
+        </section>
+      </div>
+      {/* <SignOut /> */}
     </Layout>
   );
 };

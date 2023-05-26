@@ -7,4 +7,6 @@ export const ru = {
   oops: 'Ой, что-то пошло не так!',
   thePageCannotBeFound: 'Страница, которую вы ищете, не найдена.',
   goHome: 'Вернуться на главную',
+  variables: 'Переменные',
+  headers: 'Заголовки',
 };

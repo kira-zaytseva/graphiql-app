@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Form } from '../Form';
 import { useRouter } from 'next/router';
 import { auth } from '../../Firebase/firebase';
-import useStorage from '../../Hooks/useStorage';
+import useStorage from '../../hooks/useStorage';
 
 const SignUp = (): JSX.Element => {
   const route = useRouter();

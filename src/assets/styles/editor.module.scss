@@ -59,7 +59,11 @@
     height: 70%;
 
     &__textarea {
-      padding-right: 70px;
+      @at-root {
+        textarea#{&} {
+          padding-right: 60px;
+        }
+      }
     }
 
     &__btn {
@@ -77,7 +81,11 @@
     width: 100%;
 
     &__textarea {
-      padding-top: 20px;
+      @at-root {
+        textarea#{&} {
+          padding-top: 20px;
+        }
+      }
     }
 
     &__header {

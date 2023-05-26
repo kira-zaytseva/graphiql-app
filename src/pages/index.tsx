@@ -3,11 +3,13 @@ import Button from '../components/Button';
 import styles from '../assets/styles/welcome.module.scss';
 import Layout from '../components/Layout/layout';
 import { useRouter } from 'next/router';
-import { useTranslation } from '../Hooks/useTranslation';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Welcome = (): JSX.Element => {
   const translation = useTranslation();
   const router = useRouter();
+
+  const goToLogin = translation.lang === 'EN' ? '/login' : '/ru/login';
 
   return (
     <Layout>
@@ -26,7 +28,8 @@ const Welcome = (): JSX.Element => {
             <Image src="/results.svg" alt="" height={100} width={100}></Image>
           </li>
         </ul>
-        <Button onClick={() => router.push('/login')} className={styles.welcome__button}>
+        {/* <Button onClick={() => router.push('/login')} className={styles.welcome__button}> */}
+        <Button onClick={() => router.push(goToLogin)} className={styles.welcome__button}>
           {translation.getStarted}
         </Button>
       </div>

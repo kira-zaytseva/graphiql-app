@@ -51,7 +51,7 @@ const Form: FC<FormProps> = ({ onSendRequest, title }: FormProps) => {
           <input
             {...register('password', {
               required: true,
-              pattern: /^(?=.{6})(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)[a-zA-Z\d]+$/i,
+              pattern: /^(?=.*\d)(?=.*[!@#$%^&*_])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
             })}
             type="password"
           />

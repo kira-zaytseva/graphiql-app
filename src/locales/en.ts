@@ -14,5 +14,5 @@ export const en = {
   or: 'or',
   sendRequest: 'Send request',
   errorPassword:
-    'The password must contains minimum eight letters.<br></br>At least one latin letter, one digit, one special character',
+    'The password must contain at least 8 characters. At least one lowercase and uppercase Latin letter, one digit, one special character from the set !@#$%^&*_',
 };

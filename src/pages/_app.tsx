@@ -8,6 +8,7 @@ import { useTranslation } from '../hooks/useTranslation';
 
 import '../assets/styles/normalize.css';
 import '../assets/styles/global.scss';
+import { GqlProvider } from '../context/gqlContext';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
@@ -45,7 +46,9 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
         <link rel="icon" href="/logo_graphiql.png" sizes="32x32" />
         <title>GraphiQL</title>
       </Head>
-      <Component {...pageProps} />
+      <GqlProvider>
+        <Component {...pageProps} />
+      </GqlProvider>
     </>
   );
 };

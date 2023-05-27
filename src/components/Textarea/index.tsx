@@ -7,9 +7,17 @@ interface TextareaProps {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onBlur?: () => void;
   value?: string;
+  disabled?: boolean;
 }
 
-const Textarea = ({ className, placeholder, onBlur, onChange, value }: TextareaProps) => {
+const Textarea = ({
+  className,
+  placeholder,
+  onBlur,
+  onChange,
+  value,
+  disabled = false,
+}: TextareaProps) => {
   const classes = `${styles.textarea} ${className}`;
 
   return (
@@ -19,6 +27,7 @@ const Textarea = ({ className, placeholder, onBlur, onChange, value }: TextareaP
       onChange={onChange}
       onBlur={onBlur}
       value={value}
+      disabled={disabled}
     ></textarea>
   );
 };

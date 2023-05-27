@@ -12,7 +12,7 @@ const Header = () => {
   const router = useRouter();
   const translation = useTranslation();
 
-  const user = useContext(Context);
+  const userData = useContext(Context);
 
   return (
     <header className={styles.header}>
@@ -20,7 +20,7 @@ const Header = () => {
         <Image src="/logo_graphiql.png" alt="" height={60} width={60}></Image>
         <span className={styles.header__logo__text}>GraphiQL</span>
       </Link>
-      {user.isAuth && (
+      {userData.isAuth && (
         <Link href={router.pathname}>
           <SignOut />
         </Link>

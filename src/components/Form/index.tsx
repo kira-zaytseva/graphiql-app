@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from '../../hooks/useTranslation';
 import styles from '../../assets/styles/login.module.scss';
+import Button from '../Button';
+// import Input from '../Input';
 
 export type FormData = {
   email: string;
@@ -18,18 +20,17 @@ const Form: FC<FormProps> = ({ onSendRequest, title }: FormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormData>({
     mode: 'onSubmit',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const translation = useTranslation();
 
   const onSubmit: SubmitHandler<FormData> = (data): void => {
-    console.log(`FORM: Запрос на сервер отправлен!`);
-
+    setIsLoading(true);
     onSendRequest(data);
-    reset();
+    setIsLoading(false);
   };
 
   return (
@@ -57,7 +58,9 @@ const Form: FC<FormProps> = ({ onSendRequest, title }: FormProps) => {
           />
         </div>
         {errors?.password && <p>{translation.errorPassword}</p>}
-        <button type="submit">{translation.sendRequest}</button>
+        <Button type="submit" isLoading={isLoading}>
+          {translation.sendRequest}
+        </Button>
       </form>
     </div>
   );

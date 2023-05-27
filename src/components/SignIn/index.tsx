@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Form from '../Form';
 import { auth } from '../../Firebase/firebase';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
 
 type FormData = {
@@ -13,16 +13,19 @@ const SignIn = (): JSX.Element => {
   const [error, setError] = useState<Error>(new Error(''));
   const translation = useTranslation();
 
-  const handleSignIn = (data: FormData) => {
-    signInWithEmailAndPassword(auth, data.email, data.password)
-      .then(async ({ user }) => {
-        console.log(`User.email = ${user.email}, redirect to Main Page`);
-      })
-      .catch((error: Error) => {
-        setError(error);
-        console.log(error.message);
-      });
-  };
+  const handleSignIn = useCallback(
+    async (data: FormData) => {
+      try {
+        // const { user } = await signInWithEmailAndPassword(auth, data.email, data.password);
+        await signInWithEmailAndPassword(auth, data.email, data.password);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error);
+        }
+      }
+    },
+    [setError]
+  );
 
   return (
     <>

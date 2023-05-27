@@ -14,7 +14,7 @@ import { UserVerified, defaultContext } from '../context/context';
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
   const translation = useTranslation();
-  const [user, setAuth] = useState<UserVerified>(defaultContext);
+  const [user, setUser] = useState<UserVerified>(defaultContext);
 
   const goToWelcome = translation.lang === 'EN' ? '/' : '/ru';
   const goToMain = translation.lang === 'EN' ? '/main' : '/ru/main';
@@ -22,20 +22,15 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   useEffect(() => {
     onAuthStateChanged(auth, (userVerified) => {
       if (userVerified) {
-        const email = userVerified.email;
-        console.log(`_APP: email = ${email}`);
+        setUser({ isAuth: true, email: userVerified.email as string });
 
-        setAuth({ isAuth: true, email: email as string });
         if (router.pathname === '/login' || router.pathname === '/ru/login') {
-          console.log(`_APP: redirect to MAIN PAGE`);
           router.push(goToMain);
         }
       } else {
-        console.log(`_APP: user is logged out`);
-        // TODO: set 'Sign In' and 'Sing Up' buttons onto the Header
-        setAuth({ isAuth: false, email: '' });
+        setUser({ isAuth: false, email: '' });
+
         if (router.pathname === '/main' || router.pathname === '/ru/main') {
-          console.log(`_APP: redirect to WELCOME PAGE`);
           router.push(goToWelcome);
         }
       }

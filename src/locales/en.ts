@@ -10,5 +10,7 @@ export const en = {
   signUp: 'Register',
   signIn: 'Sign In to GraphiQL',
   password: 'Enter password',
-  email: 'email',
+  email: 'E-mail',
+  or: 'or',
+  sendRequest: 'Send request',
 };

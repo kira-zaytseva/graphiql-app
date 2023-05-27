@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from '../../hooks/useTranslation';
+import styles from '../../assets/styles/login.module.scss';
 
 export type FormData = {
   email: string;
@@ -32,41 +33,36 @@ const Form: FC<FormProps> = ({ onSendRequest, title }: FormProps) => {
   };
 
   return (
-    <div className="form-wrapper">
+    <div className={styles.login__wrapper__container}>
       <h2>{title}</h2>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.login__wrapper__container__form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email">{translation.email}</label>
-          <br></br>
           <input
             {...register('email', {
               required: true,
             })}
             type="email"
-            placeholder="enter email"
           />
         </div>
         <div>{errors?.email && <p>Enter correct e-maill</p>}</div>
         <div>
           <label htmlFor="password">{translation.password}</label>
-          <br></br>
           <input
             {...register('password', {
               required: true,
-              pattern: /[A-Za-z0-9]{6,}/i,
+              pattern: /^(?=.{6})(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)[a-zA-Z\d]+$/i,
             })}
             type="password"
-            placeholder="enter password"
           />
         </div>
-        <div>
-          {errors?.password && (
-            <p>
-              The password must contains minimum six letters. Special characters are not allowed
-            </p>
-          )}
-        </div>
-        <input type="submit" />
+        {errors?.password && (
+          <p>
+            The password must contains minimum eight letters.<br></br>
+            At least one latin letter, one digit, one special character
+          </p>
+        )}
+        <button type="submit">{translation.sendRequest}</button>
       </form>
     </div>
   );

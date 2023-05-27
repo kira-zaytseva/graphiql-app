@@ -1,6 +1,6 @@
 import SignIn from '../components/SignIn';
 import SignUp from '../components/SignUp';
-import styles from '../assets/styles/welcome.module.scss';
+import styles from '../assets/styles/login.module.scss';
 import Layout from '../components/Layout/layout';
 import { useState } from 'react';
 import Button from '../components/Button';
@@ -17,11 +17,14 @@ const Login = (): JSX.Element => {
 
   return (
     <Layout>
-      <div className="form-wrapper">{action === 'signIn' ? <SignIn /> : <SignUp />}</div>
-      <p>or</p>
-      <Button onClick={toggleAction} className={styles.welcome__button}>
-        {action === 'signIn' ? translation.signUp : translation.signIn}
-      </Button>
+      {/* <div className={styles.login}> */}
+      <div className={styles.login}>
+        <div className={styles.login__wrapper}>{action === 'signIn' ? <SignIn /> : <SignUp />}</div>
+        <p className={styles.login__or}>{translation.or}</p>
+        <Button onClick={toggleAction}>
+          {action === 'signIn' ? translation.signUp : translation.signIn}
+        </Button>
+      </div>
     </Layout>
   );
 };

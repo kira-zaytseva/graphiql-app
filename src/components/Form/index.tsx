@@ -56,12 +56,7 @@ const Form: FC<FormProps> = ({ onSendRequest, title }: FormProps) => {
             type="password"
           />
         </div>
-        {errors?.password && (
-          <p>
-            The password must contains minimum eight letters.<br></br>
-            At least one latin letter, one digit, one special character
-          </p>
-        )}
+        {errors?.password && <p>{translation.errorPassword}</p>}
         <button type="submit">{translation.sendRequest}</button>
       </form>
     </div>

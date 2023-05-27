@@ -13,4 +13,6 @@ export const en = {
   email: 'E-mail',
   or: 'or',
   sendRequest: 'Send request',
+  errorPassword:
+    'The password must contains minimum eight letters.<br></br>At least one latin letter, one digit, one special character',
 };

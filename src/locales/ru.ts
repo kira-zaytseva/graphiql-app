@@ -9,6 +9,7 @@ export const ru = {
   goHome: 'Вернуться на главную',
   signUp: 'Регистрация',
   signIn: 'Войти в GraphiQL',
+  signOut: 'Выйти',
   password: 'Введите пароль',
   email: 'Почта',
   or: 'или',

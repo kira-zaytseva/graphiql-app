@@ -9,6 +9,7 @@ export const en = {
   goHome: 'Go Home',
   signUp: 'Register',
   signIn: 'Sign In to GraphiQL',
+  signOut: 'Sign Out',
   password: 'Enter password',
   email: 'E-mail',
   or: 'or',

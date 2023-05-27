@@ -42,7 +42,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/logo_graphiql.png" sizes="any" />
+        <link rel="icon" href="/logo_graphiql.png" sizes="32x32" />
         <title>GraphiQL</title>
       </Head>
       <Component {...pageProps} />

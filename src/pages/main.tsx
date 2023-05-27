@@ -1,8 +1,6 @@
 //import { useRouter } from 'next/router';
 import Image from 'next/image';
 //import SignOut from '../components/SignOut';
-// import { useEffect } from 'react';
-import useStorage from '../hooks/useStorage';
 import { useTranslation } from '../hooks/useTranslation';
 import Layout from '../components/Layout/layout';
 import styles from '../assets/styles/editor.module.scss';
@@ -11,20 +9,6 @@ import Textarea from '../components/Textarea';
 
 const Main = (): JSX.Element => {
   const translation = useTranslation();
-  const { getItem } = useStorage();
-  const token = getItem('token', 'session');
-  console.log(`token = ${token}`);
-  // const email = getItem('email');
-  //const route = useRouter();
-
-  // useEffect(() => {
-  //   if (token) {
-  //     console.log(`token есть`);
-  //   } else {
-  //     console.log('redirect to Welcome Page');
-  //     route.push('/');
-  //   }
-  // }, [route, token]);
 
   return (
     <Layout>

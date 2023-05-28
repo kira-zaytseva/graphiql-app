@@ -1,37 +1,37 @@
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../Firebase/firebase';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../hooks/useTranslation';
+import Context from '../context/context';
 
 import '../assets/styles/normalize.css';
 import '../assets/styles/global.scss';
+import { UserVerified, defaultContext } from '../context/context';
 import { GqlProvider } from '../context/gqlContext';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
   const translation = useTranslation();
+  const [user, setUser] = useState<UserVerified>(defaultContext);
 
   const goToWelcome = translation.lang === 'EN' ? '/' : '/ru';
   const goToMain = translation.lang === 'EN' ? '/main' : '/ru/main';
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const email = user.email;
-        console.log(`_APP: email = ${email}`);
-        // TODO: set 'Sign Out' button onto the Header
-        if (router.pathname === '/login') {
-          console.log(`_APP: redirect to MAIN PAGE`);
+    onAuthStateChanged(auth, (userVerified) => {
+      if (userVerified) {
+        setUser({ isAuth: true, email: userVerified.email as string });
+
+        if (router.pathname === '/login' || router.pathname === '/ru/login') {
           router.push(goToMain);
         }
       } else {
-        console.log(`_APP: user is logged out`);
-        // TODO: set 'Sign In' and 'Sing Up' buttons onto the Header
-        if (router.pathname === '/main') {
-          console.log(`_APP: redirect to WELCOME PAGE`);
+        setUser({ isAuth: false, email: '' });
+
+        if (router.pathname === '/main' || router.pathname === '/ru/main') {
           router.push(goToWelcome);
         }
       }
@@ -47,7 +47,9 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
         <title>GraphiQL</title>
       </Head>
       <GqlProvider>
-        <Component {...pageProps} />
+        <Context.Provider value={user}>
+          <Component {...pageProps} />
+        </Context.Provider>
       </GqlProvider>
     </>
   );

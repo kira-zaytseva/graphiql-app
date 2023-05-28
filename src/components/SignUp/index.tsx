@@ -1,29 +1,34 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Form } from '../Form';
-// import { useRouter } from 'next/router';
+import Form from '../Form';
 import { auth } from '../../Firebase/firebase';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 const SignUp = (): JSX.Element => {
-  // const route = useRouter();
   const [error, setError] = useState<Error>(new Error(''));
+  const translation = useTranslation();
 
-  const handleSignUp = (email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async ({ user }) => {
-        console.log(`User.email = ${user.email}, redirect to Main Page`);
-
-        // route.push('/main');
-      })
-      .catch((error: Error) => {
-        setError(error);
-        console.log(error.message);
-      });
-  };
+  const handleSignUp = useCallback(
+    async (data: FormData) => {
+      try {
+        await createUserWithEmailAndPassword(auth, data.email, data.password);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err);
+        }
+      }
+    },
+    [setError]
+  );
 
   return (
     <>
-      <Form title="Sign Up" handleClick={handleSignUp} />
+      <Form title={translation.signUp} onSendRequest={handleSignUp} />
       {error && <span style={{ color: 'red' }}>{error.message}</span>}
     </>
   );

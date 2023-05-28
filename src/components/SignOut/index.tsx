@@ -1,25 +1,23 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../../Firebase/firebase';
 import { useState } from 'react';
+import styles from '../../components/Header/style.module.scss';
 
 const SignOut = (): JSX.Element => {
-  const [error, setError] = useState<Error>(new Error(''));
+  const [error, setError] = useState<boolean>(false);
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        // router.push('/');
-      })
-      .catch((error: Error) => {
-        setError(error);
-        console.log(error.message);
-      });
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch {
+      setError(true);
+    }
   };
 
   return (
     <>
-      <button onClick={handleSignOut}>Sign Out</button>
-      {error && <span style={{ color: 'red' }}>{error.message}</span>}
+      {!error && <div onClick={handleSignOut}></div>}
+      {error && <div className={styles.header__buttons__error} onClick={handleSignOut}></div>}
     </>
   );
 };

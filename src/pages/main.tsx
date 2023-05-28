@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-key */
 import Image from 'next/image';
-//import SignOut from '../components/SignOut';
 import { useTranslation } from '../hooks/useTranslation';
 import Layout from '../components/Layout/layout';
 import styles from '../assets/styles/editor.module.scss';

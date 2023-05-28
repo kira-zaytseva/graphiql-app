@@ -5,9 +5,9 @@ import Layout from '../components/Layout/layout';
 import styles from '../assets/styles/editor.module.scss';
 import Button from '../components/Button';
 import Textarea from '../components/Textarea';
-import { useEffect, useState } from 'react';
-import { GqlProvider } from '../context/gqlContext';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useFilmsQuery } from '../hooks/gql';
+const DocsTreeLazy = lazy(() => import('../components/Docs'));
 
 enum PARAMS {
   VARIABLES = 'VARIABLES',
@@ -24,7 +24,6 @@ const Main = (): JSX.Element => {
     filmsData,
     isLoading,
     error,
-    docTree,
     setQuery,
     setVariables,
     setHeaders,
@@ -33,81 +32,80 @@ const Main = (): JSX.Element => {
 
   return (
     <Layout>
-      <GqlProvider>
-        <div className={styles.editor__wrapper}>
-          <section className={styles.editor__section}>
-            <div className={styles.editor__section__docs}>
-              <pre className={styles.editor__section__docs__text}></pre>
-              <Button isTransparent className={styles.editor__section__docs__btn}>
-                <Image src="/docs.svg" alt="" width={32} height={32}></Image>
+      <div className={styles.editor__wrapper}>
+        <section className={styles.editor__section}>
+          <div className={styles.editor__section__docs}>
+            <Suspense fallback={<span className="color-black">loading...</span>}>
+              <DocsTreeLazy />
+            </Suspense>
+            <Button isTransparent className={styles.editor__section__docs__btn}>
+              <Image src="/docs.svg" alt="" width={32} height={32}></Image>
+            </Button>
+          </div>
+          <div className={styles.editor__section__codespace}>
+            <div className={styles.codespace__editor}>
+              <Textarea
+                className={styles.codespace__editor__textarea}
+                value={query}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setQuery(e.target.value)}
+              ></Textarea>
+              <Button
+                className={styles.codespace__editor__btn}
+                isIcon
+                onClick={() => getFilms()}
+                isLoading={isLoading}
+              >
+                <Image src="/play.svg" alt="" width={20} height={20}></Image>
               </Button>
             </div>
-            <div className={styles.editor__section__codespace}>
-              <div className={styles.codespace__editor}>
-                <Textarea
-                  className={styles.codespace__editor__textarea}
-                  value={query}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setQuery(e.target.value)}
-                ></Textarea>
+            <div className={styles.codespace__params}>
+              <Textarea
+                className={`${styles.codespace__params__textarea} ${
+                  activeParam === PARAMS.HEADERS ? 'd-none' : ''
+                }`}
+                value={variables}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setVariables(e.target.value);
+                }}
+              ></Textarea>
+              <Textarea
+                className={`${styles.codespace__params__textarea} ${
+                  activeParam === PARAMS.VARIABLES ? 'd-none' : ''
+                }`}
+                value={headers}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setHeaders(e.target.value);
+                }}
+              ></Textarea>
+              <header className={styles.codespace__params__header}>
                 <Button
-                  className={styles.codespace__editor__btn}
-                  isIcon
-                  onClick={() => getFilms()}
-                  isLoading={isLoading}
+                  isTransparent
+                  className={`${styles.codespace__params__header__btn} ${
+                    activeParam === PARAMS.VARIABLES ? 'color-black' : ''
+                  }`}
+                  onClick={() => setActiveParam(PARAMS.VARIABLES)}
                 >
-                  <Image src="/play.svg" alt="" width={20} height={20}></Image>
+                  {translation.variables}
                 </Button>
-              </div>
-              <div className={styles.codespace__params}>
-                <Textarea
-                  className={`${styles.codespace__params__textarea} ${
-                    activeParam === PARAMS.HEADERS ? 'd-none' : ''
+                <Button
+                  isTransparent
+                  className={`${styles.codespace__params__header__btn} ${
+                    activeParam === PARAMS.HEADERS ? 'color-black' : ''
                   }`}
-                  value={variables}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                    setVariables(e.target.value);
-                  }}
-                ></Textarea>
-                <Textarea
-                  className={`${styles.codespace__params__textarea} ${
-                    activeParam === PARAMS.VARIABLES ? 'd-none' : ''
-                  }`}
-                  value={headers}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                    setHeaders(e.target.value);
-                  }}
-                ></Textarea>
-                <header className={styles.codespace__params__header}>
-                  <Button
-                    isTransparent
-                    className={`${styles.codespace__params__header__btn} ${
-                      activeParam === PARAMS.VARIABLES ? 'color-black' : ''
-                    }`}
-                    onClick={() => setActiveParam(PARAMS.VARIABLES)}
-                  >
-                    {translation.variables}
-                  </Button>
-                  <Button
-                    isTransparent
-                    className={`${styles.codespace__params__header__btn} ${
-                      activeParam === PARAMS.HEADERS ? 'color-black' : ''
-                    }`}
-                    onClick={() => setActiveParam(PARAMS.HEADERS)}
-                  >
-                    {translation.headers}
-                  </Button>
-                </header>
-              </div>
+                  onClick={() => setActiveParam(PARAMS.HEADERS)}
+                >
+                  {translation.headers}
+                </Button>
+              </header>
             </div>
-            <Textarea
-              className={styles.editor__section__result}
-              value={error ? error : JSON.stringify(filmsData, null, 2)}
-              disabled
-            ></Textarea>
-          </section>
-        </div>
-        {/* <SignOut /> */}
-      </GqlProvider>
+          </div>
+          <Textarea
+            className={styles.editor__section__result}
+            value={error ? error : JSON.stringify(filmsData, null, 2)}
+            disabled
+          ></Textarea>
+        </section>
+      </div>
     </Layout>
   );
 };

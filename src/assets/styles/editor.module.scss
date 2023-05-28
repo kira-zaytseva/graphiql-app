@@ -21,6 +21,8 @@
       align-items: baseline;
       width: 33%;
       border-right: .5px $border solid;
+      overflow: scroll;
+      padding-top: 60px;
 
       &__text {
         width: 100%;

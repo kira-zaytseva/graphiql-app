@@ -74,6 +74,7 @@ export const GqlProvider = ({ children }: { children: ReactElement }) => {
 
   const getFilms = useCallback(async () => {
     setIsLoading(true);
+    setError('');
     try {
       const response = await client.query({
         query: gql`
@@ -87,15 +88,11 @@ export const GqlProvider = ({ children }: { children: ReactElement }) => {
       setFilmsData(response.data);
     } catch (e) {
       if (e instanceof Error) {
-        setError(e.message);
+        setError(JSON.stringify(e, null, 2));
       }
     }
     setIsLoading(false);
   }, [query, variables, headers]);
-
-  // useEffect(() => {
-  //   getFilms();
-  // }, [getFilms]);
 
   return (
     <GqlContext.Provider

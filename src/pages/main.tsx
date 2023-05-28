@@ -102,7 +102,7 @@ const Main = (): JSX.Element => {
             </div>
             <Textarea
               className={styles.editor__section__result}
-              value={JSON.stringify(filmsData, null, 2)}
+              value={error ? error : JSON.stringify(filmsData, null, 2)}
               disabled
             ></Textarea>
           </section>

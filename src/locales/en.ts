@@ -16,4 +16,6 @@ export const en = {
   sendRequest: 'Send request',
   errorPassword:
     'The password must contain at least 8 characters. At least one lowercase and uppercase Latin letter, one digit, one special character from the set !@#$%^&*_',
+  variables: 'Variables',
+  headers: 'Headers',
 };

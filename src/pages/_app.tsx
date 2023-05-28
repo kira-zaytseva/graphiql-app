@@ -10,6 +10,7 @@ import Context from '../context/context';
 import '../assets/styles/normalize.css';
 import '../assets/styles/global.scss';
 import { UserVerified, defaultContext } from '../context/context';
+import { GqlProvider } from '../context/gqlContext';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
@@ -38,15 +39,19 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   }, [goToMain, goToWelcome, router, translation]);
 
   return (
-    <Context.Provider value={user}>
+    <>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/logo_graphiql.png" sizes="any" />
+        <link rel="icon" href="/logo_graphiql.png" sizes="32x32" />
         <title>GraphiQL</title>
       </Head>
-      <Component {...pageProps} />
-    </Context.Provider>
+      <GqlProvider>
+        <Context.Provider value={user}>
+          <Component {...pageProps} />
+        </Context.Provider>
+      </GqlProvider>
+    </>
   );
 };
 

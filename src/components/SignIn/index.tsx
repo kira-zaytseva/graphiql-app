@@ -18,9 +18,9 @@ const SignIn = (): JSX.Element => {
       try {
         // const { user } = await signInWithEmailAndPassword(auth, data.email, data.password);
         await signInWithEmailAndPassword(auth, data.email, data.password);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err);
         }
       }
     },

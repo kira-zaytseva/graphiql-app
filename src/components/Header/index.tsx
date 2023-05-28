@@ -20,16 +20,14 @@ const Header = () => {
         <Image src="/logo_graphiql.png" alt="" height={60} width={60}></Image>
         <span className={styles.header__logo__text}>GraphiQL</span>
       </Link>
-      {userData.isAuth && (
-        <Link href={router.pathname}>
-          <SignOut />
+      <div className={styles.header__buttons}>
+        <Link href={router.pathname} locale={router.locale === 'en' ? 'ru' : 'en'}>
+          <Button className={styles.header__buttons__lang} isTransparent>
+            {translation.lang}
+          </Button>
         </Link>
-      )}
-      <Link href={router.pathname} locale={router.locale === 'en' ? 'ru' : 'en'}>
-        <Button className={styles.header__lang} isTransparent>
-          {translation.lang}
-        </Button>
-      </Link>
+        {userData.isAuth && <SignOut />}
+      </div>
     </header>
   );
 };

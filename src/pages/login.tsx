@@ -5,24 +5,29 @@ import Layout from '../components/Layout/layout';
 import { useState } from 'react';
 import Button from '../components/Button';
 import { useTranslation } from '../hooks/useTranslation';
+import Context from '../context/context';
+import { useContext } from 'react';
 
 const Login = (): JSX.Element => {
-  const [action, setAction] = useState('signIn');
+  const { action } = useContext(Context);
+  let actionReq = action;
+  if (actionReq === undefined) actionReq = 'signIn';
+
+  const [act, setAct] = useState(actionReq);
   const translation = useTranslation();
 
   const toggleAction = () => {
-    if (action === 'signIn') setAction('signUp');
-    else setAction('signIn');
+    if (act === 'signIn') setAct('signUp');
+    else setAct('signIn');
   };
 
   return (
     <Layout>
-      {/* <div className={styles.login}> */}
       <div className={styles.login}>
-        <div className={styles.login__wrapper}>{action === 'signIn' ? <SignIn /> : <SignUp />}</div>
+        <div className={styles.login__wrapper}>{act === 'signIn' ? <SignIn /> : <SignUp />}</div>
         <p className={styles.login__or}>{translation.or}</p>
         <Button onClick={toggleAction}>
-          {action === 'signIn' ? translation.signUp : translation.signIn}
+          {act === 'signIn' ? translation.signUp : translation.signIn}
         </Button>
       </div>
     </Layout>

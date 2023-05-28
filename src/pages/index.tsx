@@ -2,18 +2,40 @@ import Image from 'next/image';
 import Button from '../components/Button';
 import styles from '../assets/styles/welcome.module.scss';
 import Layout from '../components/Layout/layout';
-import { useRouter } from 'next/router';
 import { useTranslation } from '../hooks/useTranslation';
+import Context from '../context/context';
+import { useContext } from 'react';
+import Link from 'next/link';
 
 const Welcome = (): JSX.Element => {
   const translation = useTranslation();
-  const router = useRouter();
+  const userData = useContext(Context);
 
   const goToLogin = translation.lang === 'EN' ? '/login' : '/ru/login';
+  const goToMain = translation.lang === 'EN' ? '/main' : '/ru/main';
 
   return (
     <Layout>
       <div className={styles.welcome}>
+        <div className={styles.welcome__wrapper}>
+          <div className={styles.welcome__wrapper__authBtns}>
+            {!userData.isAuth && (
+              <Link href={goToLogin} onClick={() => (userData.action = 'signIn')}>
+                <Button>{translation.signIn}</Button>
+              </Link>
+            )}
+            {!userData.isAuth && (
+              <Link href={goToLogin} onClick={() => (userData.action = 'signUp')}>
+                <Button>{translation.signUp}</Button>
+              </Link>
+            )}
+            {userData.isAuth && (
+              <Link href={goToMain} onClick={() => (userData.action = 'Get Started')}>
+                <Button>{translation.getStarted}</Button>
+              </Link>
+            )}
+          </div>
+        </div>
         <ul className={styles.welcome__info}>
           <li className={styles.welcome__info__item}>
             <span>{translation.describeData}</span>
@@ -28,9 +50,6 @@ const Welcome = (): JSX.Element => {
             <Image src="/results.svg" alt="" height={100} width={100}></Image>
           </li>
         </ul>
-        <Button onClick={() => router.push(goToLogin)} className={styles.welcome__button}>
-          {translation.getStarted}
-        </Button>
       </div>
     </Layout>
   );

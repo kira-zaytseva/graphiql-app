@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from '../../hooks/useTranslation';
 import styles from '../../assets/styles/login.module.scss';
 import Button from '../Button';
-// import Input from '../Input';
 
 export type FormData = {
   email: string;

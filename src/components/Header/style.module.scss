@@ -41,7 +41,11 @@
       padding: 0;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      border: 0px solid transparent;
+      // border: 0px solid transparent;
+    }
+
+    &__error {
+      background-color: rgb(100, 0, 0);
     }
 
     & div:hover {

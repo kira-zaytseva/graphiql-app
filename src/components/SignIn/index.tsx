@@ -16,7 +16,6 @@ const SignIn = (): JSX.Element => {
   const handleSignIn = useCallback(
     async (data: FormData) => {
       try {
-        // const { user } = await signInWithEmailAndPassword(auth, data.email, data.password);
         await signInWithEmailAndPassword(auth, data.email, data.password);
       } catch (err) {
         if (err instanceof Error) {

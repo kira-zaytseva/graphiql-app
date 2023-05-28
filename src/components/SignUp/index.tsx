@@ -16,7 +16,6 @@ const SignUp = (): JSX.Element => {
   const handleSignUp = useCallback(
     async (data: FormData) => {
       try {
-        // const { user } = await signInWithEmailAndPassword(auth, data.email, data.password);
         await createUserWithEmailAndPassword(auth, data.email, data.password);
       } catch (err) {
         if (err instanceof Error) {

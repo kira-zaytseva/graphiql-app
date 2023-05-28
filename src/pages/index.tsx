@@ -35,12 +35,12 @@ const Welcome = (): JSX.Element => {
           <div className={styles.welcome__wrapper__authBtns}>
             {!userData.isAuth && (
               <Link href={goToLogin} onClick={() => (userData.action = 'signIn')}>
-                <Button>{translation.signIn}</Button>
+                <Button className={styles.authBtns}>{translation.signIn}</Button>
               </Link>
             )}
             {!userData.isAuth && (
               <Link href={goToLogin} onClick={() => (userData.action = 'signUp')}>
-                <Button>{translation.signUp}</Button>
+                <Button className={styles.authBtns}>{translation.signUp}</Button>
               </Link>
             )}
             {userData.isAuth && (

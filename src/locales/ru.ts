@@ -8,7 +8,7 @@ export const ru = {
   thePageCannotBeFound: 'Страница, которую вы ищете, не найдена.',
   goHome: 'Вернуться на главную',
   signUp: 'Регистрация',
-  signIn: 'Войти в GraphiQL',
+  signIn: 'Войти',
   signOut: 'Выйти',
   password: 'Введите пароль',
   email: 'Почта',

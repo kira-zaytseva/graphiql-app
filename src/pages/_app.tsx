@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from '../hooks/useTranslation';
 import Context from '../context/context';
 
+import 'antd/dist/antd.css';
 import '../assets/styles/normalize.css';
 import '../assets/styles/global.scss';
 import { UserVerified, defaultContext } from '../context/context';

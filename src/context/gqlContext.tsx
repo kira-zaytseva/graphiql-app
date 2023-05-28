@@ -1,6 +1,9 @@
+import React, { createContext, ReactElement, useCallback, useState } from 'react';
 import { gql } from '@apollo/client';
 import client from '../apollo';
-import React, { createContext, ReactElement, useCallback, useEffect, useState } from 'react';
+import { getDocsResponse } from '../API/docs';
+import { DocsNode, ResponseDocs } from '../types/types';
+import { parseDocs } from '../helpers/docsParsing';
 
 type DataObject = Record<string, string | number | string | Array<DataObject>> | string;
 
@@ -23,29 +26,15 @@ const FILMS_QUERY = `query Query($last: Int) {
   }
 }`;
 
-export const FILMS_VARS = `{
+const FILMS_VARS = `{
   "last": 1
 }
 `;
 
-export const FILMS_HEADERS = `{
+const FILMS_HEADERS = `{
   "headers": "Header value"
 }
 `;
-
-type Field = {
-  name: string;
-  description?: string;
-  type: string;
-};
-
-type DocTreeNode = {
-  name: string;
-  description?: string;
-  fields?: Field[];
-  types?: DocTreeNode[];
-  expanded: boolean;
-};
 
 export interface InitialContext {
   query: string;
@@ -54,11 +43,13 @@ export interface InitialContext {
   filmsData: DataObject;
   isLoading: boolean;
   error: string | null;
-  docTree: DocTreeNode | null;
+  docTree: DocsNode | null;
   setQuery: (query: string) => void;
   setVariables: (variable: string) => void;
   setHeaders: (header: string) => void;
-  getFilms: () => void;
+  getFilms: VoidFunction;
+  isLoadingDocs: boolean;
+  getDocs: VoidFunction;
 }
 
 export const GqlContext = createContext<InitialContext | null>(null);
@@ -69,8 +60,26 @@ export const GqlProvider = ({ children }: { children: ReactElement }) => {
   const [headers, setHeaders] = useState<string>(FILMS_HEADERS);
   const [filmsData, setFilmsData] = useState<DataObject>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingDocs, setIsLoadingDocs] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [docTree, setDocTree] = useState<DocTreeNode | null>(null);
+  const [docTree, setDocTree] = useState<DocsNode | null>(null);
+
+  const getDocs = useCallback(async () => {
+    setIsLoadingDocs(true);
+    setError('');
+    try {
+      const response = await getDocsResponse();
+      const { data } = (await response.json()) as ResponseDocs;
+      const preparedDocs = parseDocs(data.__schema.queryType.fields);
+
+      setDocTree(preparedDocs);
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(JSON.stringify(e, null, 2));
+      }
+    }
+    setIsLoadingDocs(false);
+  }, [setDocTree, setIsLoadingDocs, setError]);
 
   const getFilms = useCallback(async () => {
     setIsLoading(true);
@@ -108,6 +117,8 @@ export const GqlProvider = ({ children }: { children: ReactElement }) => {
         setVariables,
         setHeaders,
         getFilms,
+        isLoadingDocs,
+        getDocs,
       }}
     >
       {children}

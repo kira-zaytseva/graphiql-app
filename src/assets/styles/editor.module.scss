@@ -20,7 +20,7 @@
       display: flex;
       align-items: baseline;
       width: 33%;
-      border-right: .5px $border solid;
+      border-right: 0.5px $border solid;
 
       &__text {
         width: 100%;
@@ -89,22 +89,22 @@
       }
     }
 
-      &__header {
-        position: absolute;
-        display: flex;
-        gap: 10px;
-        top: 5px;
-        left: 5px;
+    &__header {
+      position: absolute;
+      display: flex;
+      gap: 10px;
+      top: 5px;
+      left: 5px;
 
-        &__btn {
-          padding: 1px 3px;
-          color: $border;
-          font-size: .7rem;
+      &__btn {
+        padding: 1px 3px;
+        color: $border;
+        font-size: 0.7rem;
 
-          &:hover {
-            opacity: 1;
-          }
+        &:hover {
+          opacity: 1;
         }
       }
     }
   }
+}

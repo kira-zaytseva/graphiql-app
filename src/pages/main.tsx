@@ -17,6 +17,7 @@ enum PARAMS {
 const Main = (): JSX.Element => {
   const translation = useTranslation();
   const [activeParam, setActiveParam] = useState(PARAMS.VARIABLES);
+  const [minMaxSize, setMinMaxSize] = useState('max');
   const {
     query,
     variables,
@@ -31,6 +32,12 @@ const Main = (): JSX.Element => {
     getFilms,
   } = useFilmsQuery();
 
+  const toggleView = () => {
+    if (minMaxSize === 'max') setMinMaxSize('min');
+    else setMinMaxSize('max');
+    // console.log(`TOGGLE: ${minMaxSize}`);
+  };
+
   return (
     <Layout>
       <GqlProvider>
@@ -43,7 +50,10 @@ const Main = (): JSX.Element => {
               </Button>
             </div>
             <div className={styles.editor__section__codespace}>
-              <div className={styles.codespace__editor}>
+              <div
+                className={styles.codespace__editor}
+                style={minMaxSize === 'min' ? { height: '96%' } : { height: '70%' }}
+              >
                 <Textarea
                   className={styles.codespace__editor__textarea}
                   value={query}
@@ -58,7 +68,10 @@ const Main = (): JSX.Element => {
                   <Image src="/play.svg" alt="" width={20} height={20}></Image>
                 </Button>
               </div>
-              <div className={styles.codespace__params}>
+              <div
+                className={styles.codespace__params}
+                style={minMaxSize === 'min' ? { height: '4%' } : { height: '30%' }}
+              >
                 <Textarea
                   className={`${styles.codespace__params__textarea} ${
                     activeParam === PARAMS.HEADERS ? 'd-none' : ''
@@ -77,26 +90,47 @@ const Main = (): JSX.Element => {
                     setHeaders(e.target.value);
                   }}
                 ></Textarea>
-                <header className={styles.codespace__params__header}>
-                  <Button
-                    isTransparent
-                    className={`${styles.codespace__params__header__btn} ${
-                      activeParam === PARAMS.VARIABLES ? 'color-black' : ''
-                    }`}
-                    onClick={() => setActiveParam(PARAMS.VARIABLES)}
-                  >
-                    {translation.variables}
-                  </Button>
-                  <Button
-                    isTransparent
-                    className={`${styles.codespace__params__header__btn} ${
-                      activeParam === PARAMS.HEADERS ? 'color-black' : ''
-                    }`}
-                    onClick={() => setActiveParam(PARAMS.HEADERS)}
-                  >
-                    {translation.headers}
-                  </Button>
+                {/*-------------- { начало блока } ---------------*/}
+                <header
+                  className={styles.codespace__params__header}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div>
+                    <Button
+                      isTransparent
+                      className={`${styles.codespace__params__header__btn} ${
+                        activeParam === PARAMS.VARIABLES ? 'color-black' : ''
+                      }`}
+                      onClick={() => setActiveParam(PARAMS.VARIABLES)}
+                    >
+                      {translation.variables}
+                    </Button>
+                    <Button
+                      isTransparent
+                      className={`${styles.codespace__params__header__btn} ${
+                        activeParam === PARAMS.HEADERS ? 'color-black' : ''
+                      }`}
+                      onClick={() => setActiveParam(PARAMS.HEADERS)}
+                    >
+                      {translation.headers}
+                    </Button>
+                  </div>
+                  <div style={{ paddingRight: '1rem' }}>
+                    <Button
+                      isTransparent
+                      className={`${styles.codespace__params__header__btn} color-black`}
+                      onClick={() => toggleView()}
+                    >
+                      {minMaxSize === 'min' ? `˄` : `˅`}
+                    </Button>
+                  </div>
                 </header>
+                {/* ------------------------------ */}
               </div>
             </div>
             <Textarea

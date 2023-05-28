@@ -1,11 +1,25 @@
 import Image from 'next/image';
-import Button from '../components/Button';
-import styles from '../assets/styles/welcome.module.scss';
-import Layout from '../components/Layout/layout';
-import { useTranslation } from '../hooks/useTranslation';
-import Context from '../context/context';
 import { useContext } from 'react';
 import Link from 'next/link';
+import Button from '../components/Button';
+import Layout from '../components/Layout/layout';
+import { DeveloperInfo } from '../components/DeveloperInfo';
+import { useTranslation } from '../hooks/useTranslation';
+import Context from '../context/context';
+
+import styles from '../assets/styles/welcome.module.scss';
+
+enum DevelopersName {
+  Kira = 'Kira',
+  Evgeny = 'Evgeny',
+  Anton = 'Anton',
+}
+
+const developers = [
+  { name: DevelopersName.Kira, img: 'https://avatars.githubusercontent.com/u/60791496?v=4' },
+  { name: DevelopersName.Evgeny, img: 'https://avatars.githubusercontent.com/u/112211574?v=4' },
+  { name: DevelopersName.Anton, img: 'https://avatars.githubusercontent.com/u/54247716?s=40&v=4' },
+];
 
 const Welcome = (): JSX.Element => {
   const translation = useTranslation();
@@ -50,6 +64,17 @@ const Welcome = (): JSX.Element => {
             <Image src="/results.svg" alt="" height={100} width={100}></Image>
           </li>
         </ul>
+
+        <div className={styles.welcome__developers}>
+          {developers.map(({ name, img }) => (
+            <DeveloperInfo
+              key={name}
+              img={img}
+              description={translation[`descriptionDeveloper${name}`]}
+              fullName={translation[`fullNameDeveloper${name}`]}
+            />
+          ))}
+        </div>
       </div>
     </Layout>
   );

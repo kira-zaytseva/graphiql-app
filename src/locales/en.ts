@@ -8,7 +8,7 @@ export const en = {
   thePageCannotBeFound: 'The page you are looking for cannot be found.',
   goHome: 'Go Home',
   signUp: 'Register',
-  signIn: 'Sign In to GraphiQL',
+  signIn: 'Sign In',
   signOut: 'Sign Out',
   password: 'Enter password',
   email: 'E-mail',

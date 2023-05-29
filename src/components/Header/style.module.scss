@@ -1,0 +1,55 @@
+@import './../../assets/styles/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 7%;
+  background-color: $mainBg;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &__text {
+      color: $pink;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    grid-gap: 20px;
+
+    &__lang {
+      border: 1px solid $white;
+      padding: 10px;
+    }
+
+    & div {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      background-image: url('../../../public/exit.png');
+      padding: 0;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      // border: 0px solid transparent;
+    }
+
+    &__error {
+      background-color: rgb(100, 0, 0);
+    }
+
+    & div:hover {
+      opacity: 0.7;
+    }
+  }
+}

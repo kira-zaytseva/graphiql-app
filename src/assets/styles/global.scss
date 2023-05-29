@@ -1,0 +1,61 @@
+@import './variables.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: $mainBg;
+  color: $white;
+  overflow-y: hidden;
+}
+
+html,
+body,
+#root,
+#main,
+.app {
+  height: 100%;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: $white;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+input::-moz-placeholder {
+  color: $border;
+}
+
+input::-webkit-input-placeholder {
+  color: $border;
+}
+
+.d-none {
+  display: none;
+}
+
+.color-black {
+  color: $black !important;
+}
+
+input {
+  color: $black;
+}

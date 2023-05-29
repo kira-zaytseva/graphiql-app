@@ -1,0 +1,17 @@
+$black: #000;
+$border: #d3d3d3;
+$mainBg: #000080;
+$pink: #e10098;
+$red: #ff0000;
+$white: #fff;
+
+$spinner-animation: spinner-rotate 0.8s linear infinite;
+
+@keyframes spinner-rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
